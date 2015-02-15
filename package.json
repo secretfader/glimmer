@@ -1,0 +1,38 @@
+{
+  "name": "glimmer",
+  "version": "0.0.1",
+  "description": "The most powerful file upload toolkit you've yet to see.",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/originalmachine/glimmer.git"
+  },
+  "keywords": [
+    "file",
+    "upload",
+    "express",
+    "connect",
+    "aws",
+    "s3"
+  ],
+  "author": "Nicholas Young <nicholas@nicholaswyoung.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/originalmachine/glimmer/issues"
+  },
+  "homepage": "https://github.com/originalmachine/glimmer",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-6to5": "^3.0.0",
+    "gulp-mocha": "^2.0.0",
+    "koa-static": "^1.4.9",
+    "mocha": "^2.1.0"
+  },
+  "dependencies": {
+    "ampersand-class-extend": "^1.0.1",
+    "async": "^0.9.0"
+  }
+}
