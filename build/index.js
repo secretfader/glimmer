@@ -4,10 +4,16 @@ var _prototypeProperties = function (child, staticProps, instanceProps) { if (st
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-var Stream = require("stream"),
-    Promise = global.Promise || require("bluebird"),
+/**
+ * Dependencies
+ */
+var path = require("path"),
+    Stream = require("stream"),
     Busboy = require("busboy"),
+    Promise = require("bluebird"),
+    errbot = require("errbot"),
     async = require("async"),
+    includes = require("lodash.includes"),
     extend = require("ampersand-class-extend");
 
 /**
@@ -55,7 +61,7 @@ var Glimmer = (function () {
             var mapping = options[fieldname],
                 Uploader = self.uploaders[mapping];
 
-            if (!mapping || !Uploader) return stream.resume();
+            if (!filename || !mapping || !Uploader) return stream.resume();
 
             count++;
 
@@ -104,8 +110,7 @@ var Uploader = (function () {
     this.input = new Stream.PassThrough();
     this.filename = filename;
     this.transformers = [];
-
-    if (this.filename) this.validate();
+    this.extensions = [];
 
     this.source.pipe(this.input);
     this.configure();
@@ -117,6 +122,26 @@ var Uploader = (function () {
       writable: true,
       configurable: true
     },
+    accepts: {
+      value: function accepts(extensions) {
+        if (Array.isArray(extensions)) {
+          this.extensions = extensions;
+        } else {
+          this.extensions = [extensions];
+        }
+      },
+      writable: true,
+      configurable: true
+    },
+    validate: {
+      value: function validate() {
+        if (!this.extensions.length) {
+          return true;
+        }return includes(this.extensions, path.extname(this.filename).replace(".", ""));
+      },
+      writable: true,
+      configurable: true
+    },
     transform: {
       value: function transform(method) {
         this.transformers.push(method);
@@ -124,15 +149,15 @@ var Uploader = (function () {
       writable: true,
       configurable: true
     },
-    validate: {
-      value: function validate() {},
-      writable: true,
-      configurable: true
-    },
     save: {
       value: function save() {
         var self = this;
+
         return new Promise(function (resolve, reject) {
+          if (!self.validate()) {
+            return reject(errbot.badRequest("Please try another file type."));
+          }
+
           async.map(self.transformers, (function (transformer, next) {
             if (!this[transformer]) return next();
             this[transformer](next);
