@@ -1,6 +1,6 @@
 {
   "name": "glimmer",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "The most powerful file upload toolkit you've yet to see.",
   "main": "build/index.js",
   "scripts": {
@@ -16,7 +16,9 @@
     "express",
     "connect",
     "aws",
-    "s3"
+    "s3",
+    "telecast",
+    "pkgcloud"
   ],
   "author": "Nicholas Young <nicholas@nicholaswyoung.com>",
   "license": "BSD-3-Clause",
