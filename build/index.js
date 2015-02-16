@@ -38,8 +38,11 @@ var Glimmer = (function () {
         context = context.req || context;
 
         var self = this,
+            meta = options.meta || {},
             parser = new Busboy({ headers: context.headers }),
             deferred;
+
+        delete options.meta;
 
         context.pipe(parser);
 
@@ -65,7 +68,7 @@ var Glimmer = (function () {
 
             count++;
 
-            new Uploader(stream, filename).save().then(function (stored) {
+            new Uploader(stream, filename, meta).save().then(function (stored) {
               count--;
               files[fieldname] = stored;
               onEnd();
@@ -101,7 +104,7 @@ Glimmer.uploaders = {};
  * Uploader
  */
 var Uploader = (function () {
-  function Uploader(source, filename) {
+  function Uploader(source, filename, meta) {
     _classCallCheck(this, Uploader);
 
     if (!source) throw new Error("Please pass a source stream.");
@@ -109,6 +112,7 @@ var Uploader = (function () {
     this.source = source;
     this.input = new Stream.PassThrough();
     this.filename = filename;
+    this.meta = meta || {};
     this.transformers = [];
     this.extensions = [];
 

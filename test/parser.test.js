@@ -11,7 +11,8 @@ ImageUploader = require(path.join(__dirname, 'lib/image_uploader'));
 
 app.use(function * () {
   this.body = yield Glimmer.parse(this, {
-    avatar: 'ImageUploader'
+    avatar: 'ImageUploader',
+    meta: { id: 'xxx' }
   });
 });
 

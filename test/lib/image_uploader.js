@@ -8,7 +8,14 @@ ImageUploader = Glimmer.Uploader.extend({
     this.transform('upload');
   },
   upload: function (next) {
-    var upload = telecast.put('avatar.jpg');
+    var output = []
+    ,   upload;
+
+    if (this.meta.id) output.push(this.meta.id);
+
+    output.push('avatar.jpg');
+
+    upload = telecast.put(output.join('/'));
 
     upload.on('error', function (err) {
       return next(err);
