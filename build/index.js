@@ -141,7 +141,7 @@ var Uploader = (function () {
       value: function validate() {
         if (!this.extensions.length) {
           return true;
-        }return includes(this.extensions, path.extname(this.filename).replace(".", ""));
+        }return includes(this.extensions, path.extname(this.filename).slice(1));
       },
       writable: true,
       configurable: true
