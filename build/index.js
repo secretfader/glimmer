@@ -32,6 +32,13 @@ var Glimmer = (function () {
       writable: true,
       configurable: true
     },
+    get: {
+      value: function get(key) {
+        return this.uploaders[key];
+      },
+      writable: true,
+      configurable: true
+    },
     parse: {
       value: function parse(context, options, done) {
         options = options || {};
