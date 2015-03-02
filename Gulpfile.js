@@ -12,10 +12,6 @@ gulp.task('test', function () {
   return gulp.src('test/*.test.js').pipe(mocha());
 });
 
-gulp.task('dev', function () {
-  gulp.watch('lib/*', ['build']);
-});
-
-gulp.task('default', function () {
-  gulp.watch(['lib/index.js', 'test/*.test.js'], ['test']);
+gulp.task('default', ['build'], function () {
+  gulp.watch(['lib/index.js', 'test/*.test.js'], ['build', 'test']);
 });
