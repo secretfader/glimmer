@@ -23,7 +23,7 @@ describe('Glimmer Uploader: Methods', function () {
   });
 
   it('should be able to register callbacks', function () {
-    expect(this.uploader.transformers).to.include('avatar');
+    expect(Object.keys(this.uploader.transformers)).to.include('avatar');
   });
 
   it('should store callback function names', function () {

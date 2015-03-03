@@ -120,7 +120,7 @@ var Uploader = (function () {
     this.input = new Stream.PassThrough();
     this.filename = filename;
     this.meta = meta || {};
-    this.transformers = [];
+    this.transformers = {};
     this.extensions = [];
 
     this.source.pipe(this.input);
@@ -155,7 +155,7 @@ var Uploader = (function () {
     },
     transform: {
       value: function transform(method) {
-        this.transformers.push(method);
+        this.transformers[method] = this[method].bind(this);
       },
       writable: true,
       configurable: true
@@ -169,10 +169,7 @@ var Uploader = (function () {
             return reject(errbot.badRequest("Please try another file type."));
           }
 
-          async.map(self.transformers, (function (transformer, next) {
-            if (!this[transformer]) return next();
-            this[transformer](next);
-          }).bind(self), function (err, saved) {
+          async.parallel(self.transformers, function (err, saved) {
             if (err) return reject(err);
             resolve(saved);
           });
