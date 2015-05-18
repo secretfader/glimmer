@@ -89,13 +89,7 @@ var Glimmer = (function () {
           });
         });
 
-        if (done) {
-          deferred.then(function (stored) {
-            done(null, stored);
-          }, done);
-        }
-
-        return deferred;
+        return deferred.nodeify(done);
       },
       writable: true,
       configurable: true
@@ -182,7 +176,7 @@ var Uploader = (function () {
       configurable: true
     },
     save: {
-      value: function save() {
+      value: function save(done) {
         var self = this;
 
         return new Promise(function (resolve, reject) {
@@ -194,7 +188,7 @@ var Uploader = (function () {
             if (err) return reject(err);
             resolve(saved);
           });
-        });
+        }).nodeify(done);
       },
       writable: true,
       configurable: true
