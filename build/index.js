@@ -99,6 +99,27 @@ var Glimmer = (function () {
       },
       writable: true,
       configurable: true
+    },
+    store: {
+      value: function store(stream, mapping, meta, done) {
+        if (!stream || !stream.readable) {
+          throw new Error("You must provide an input stream.");
+        }
+
+        if ("function" === typeof meta) {
+          done = meta;
+          meta = null;
+        }
+
+        var Uploader = this.uploaders[mapping],
+            filename = path.basename(stream.path);
+
+        if (!Uploader) throw new Error("You must provide a valid key.");
+
+        return new Uploader(stream, filename, meta).save().nodeify(done);
+      },
+      writable: true,
+      configurable: true
     }
   });
 
