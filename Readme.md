@@ -1,5 +1,7 @@
 # Glimmer
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/nicholaswyoung/glimmer.svg)](https://greenkeeper.io/)
+
 Parsing and uploading multipart files doesn't have to be difficult. Glimmer transforms this menial (and frustrating) job, into a few simple and enjoyable tasks.
 
 ## Usage
