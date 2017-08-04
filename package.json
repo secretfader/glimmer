@@ -27,20 +27,20 @@
   },
   "homepage": "https://github.com/originalmachine/glimmer",
   "dependencies": {
-    "ampersand-class-extend": "^1.0.1",
-    "async": "^0.9.0",
-    "bluebird": "^2.9.9",
+    "ampersand-class-extend": "^2.0.0",
+    "async": "^2.5.0",
+    "bluebird": "^3.5.0",
     "busboy": "^0.2.9",
     "errbot": "^1.0.0",
-    "lodash.includes": "^3.0.0"
+    "lodash.includes": "^4.3.0"
   },
   "devDependencies": {
-    "chai": "^2.0.0",
+    "chai": "^4.1.0",
     "gulp": "^3.8.11",
     "gulp-6to5": "^3.0.0",
-    "gulp-mocha": "^2.0.0",
-    "koa": "^0.18.0",
-    "supertest": "^0.15.0",
-    "telecast": "^0.3.1"
+    "gulp-mocha": "^4.3.1",
+    "koa": "^2.3.0",
+    "supertest": "^3.0.0",
+    "telecast": "^0.4.1"
   }
 }
